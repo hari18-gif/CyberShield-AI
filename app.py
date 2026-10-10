@@ -1,17 +1,5 @@
 
 import streamlit as st
-import sys
-import subprocess
-
-result = subprocess.run(
-    [sys.executable, "-m", "pip", "show", "joblib"],
-    capture_output=True,
-    text=True
-)
-
-st.write("Python executable:", sys.executable)
-st.write("Joblib package information:", result.stdout)
-st.write("Package check errors:", result.stderr)
 from pathlib import Path
 from datetime import datetime
 import re
