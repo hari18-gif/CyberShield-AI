@@ -42,16 +42,16 @@ div.stButton > button {
 """, unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ----------------
+MODEL_PATH = Path(__file__).parent / "model" / "scam_model.pkl"
 
-from pathlib import Path
-import joblib
-
-MODEL_PATH = Path(__file__).resolve().parent / "scam_model.pkl"
+@st.cache_resource
+def load_model():
+    return joblib.load(MODEL_PATH)
 
 try:
-    model = joblib.load(MODEL_PATH)
+    model = load_model()
 except Exception as e:
-    st.error(f"Model loading failed: {type(e).__name__}: {e}")
+    st.error("Unable to load the AI model. Check model/scam_model.pkl.")
     st.stop()
 
 # ---------------- HEADER ----------------
@@ -94,14 +94,14 @@ if st.button("🔍 ANALYZE MESSAGE", type="primary"):
             st.divider()
             st.subheader("Analysis Result")
 
-            
-prediction = model.predict([message])[0]
-
-if prediction == 1:
-    st.error("🚨 Potential Scam Detected!")
-else:
-    st.success("✅ No Scam Detected")
-
+            if prediction == "scam":
+                st.error("🚨 POSSIBLE SCAM DETECTED")
+                st.write(
+                    "Be careful. Avoid clicking suspicious links or sharing "
+                    "OTPs, passwords, bank details, or personal information."
+                )
+            else:
+                st.success("✅ NO SCAM DETECTED BY THE MODEL")
                 st.write(
                     "The model classified this message as normal. "
                     "This does not guarantee that it is safe."
