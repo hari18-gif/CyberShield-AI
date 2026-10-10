@@ -1,22 +1,6 @@
 
 import streamlit as st
-import sys
-import subprocess
-import importlib.util
-
-st.write("Python version:", sys.version)
-st.write("Joblib import location:", importlib.util.find_spec("joblib"))
-
-result = subprocess.run(
-    [sys.executable, "-m", "pip", "show", "joblib"],
-    capture_output=True,
-    text=True
-)
-
-st.write("Joblib package details:")
-st.code(result.stdout or result.stderr or "No package information found.")
-
-st.stop()
+import joblib
 from pathlib import Path
 from datetime import datetime
 import re
