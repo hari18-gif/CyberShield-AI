@@ -42,16 +42,16 @@ div.stButton > button {
 """, unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ----------------
-MODEL_PATH = Path(__file__).parent / "model" / "scam_model.pkl"
 
-@st.cache_resource
-def load_model():
-    return joblib.load(MODEL_PATH)
+from pathlib import Path
+import joblib
+
+MODEL_PATH = Path(__file__).resolve().parent / "scam_model.pkl"
 
 try:
-    model = load_model()
+    model = joblib.load(MODEL_PATH)
 except Exception as e:
-    st.error("Unable to load the AI model. Check model/scam_model.pkl.")
+    st.error(f"Model loading failed: {type(e).__name__}: {e}")
     st.stop()
 
 # ---------------- HEADER ----------------
