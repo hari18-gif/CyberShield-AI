@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 streamlit = "*"
 joblib = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.12"
