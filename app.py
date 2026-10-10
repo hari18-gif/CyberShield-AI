@@ -94,14 +94,14 @@ if st.button("🔍 ANALYZE MESSAGE", type="primary"):
             st.divider()
             st.subheader("Analysis Result")
 
-            if prediction == "scam":
-                st.error("🚨 POSSIBLE SCAM DETECTED")
-                st.write(
-                    "Be careful. Avoid clicking suspicious links or sharing "
-                    "OTPs, passwords, bank details, or personal information."
-                )
-            else:
-                st.success("✅ NO SCAM DETECTED BY THE MODEL")
+            
+prediction = model.predict([message])[0]
+
+if prediction == 1:
+    st.error("🚨 Potential Scam Detected!")
+else:
+    st.success("✅ No Scam Detected")
+
                 st.write(
                     "The model classified this message as normal. "
                     "This does not guarantee that it is safe."
