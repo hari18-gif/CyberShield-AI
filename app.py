@@ -42,7 +42,11 @@ div.stButton > button {
 """, unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ----------------
-MODEL_PATH = Path(__file__).parent / "model" / "scam_model.pkl"
+from pathlib import Path
+import joblib
+
+MODEL_PATH = Path(__file__).resolve().parent / "scam_model.pkl"
+model = joblib.load(MODEL_PATH)
 
 @st.cache_resource
 def load_model():
